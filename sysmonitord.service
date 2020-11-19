@@ -1,0 +1,23 @@
+[Unit]
+Description=System Reporter MQTT Client/Daemin
+Documentation=https://github.com/ironsheep/RPi-Reporter-MQTT2HA-Daemon
+After=network.target network-online.target
+Wants=network-online.target
+Requires=network.target
+
+[Service]
+Type=notify
+User=daemon
+Group=daemon
+WorkingDirectory=/opt/sysmonitor/
+ExecStart=/usr/bin/python3 -u /opt/sysmonitor/sysmonitor.py
+StandardOutput=null
+#StandardOutput=syslog
+#SyslogIdentifier=ISPliDet
+StandardError=journal
+Environment=PYTHONUNBUFFERED=1
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
